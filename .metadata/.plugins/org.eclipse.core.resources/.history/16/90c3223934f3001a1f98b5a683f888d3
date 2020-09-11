@@ -1,0 +1,15 @@
+package com.example.AdminPortal.Entity;
+
+import lombok.NoArgsConstructor;
+
+
+public class AgentEntity {
+
+	
+	private String AgentName;
+	
+	private String AgentBranchName;
+	
+	
+	
+}

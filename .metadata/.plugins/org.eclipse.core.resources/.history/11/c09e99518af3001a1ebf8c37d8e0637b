@@ -1,0 +1,16 @@
+package com.example.AdminPortal.Repository;
+
+import org.hibernate.Session;
+
+import com.example.AdminPortal.Entity.AgentEntity;
+import com.example.AdminPortal.Entity.InsurerEntity;
+
+public class AgentDao {
+
+	public void addpayment(InsurerEntity insurer_entity) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.save(agententity);
+		return agententity;
+		
+	}
+}

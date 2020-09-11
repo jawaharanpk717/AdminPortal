@@ -1,0 +1,66 @@
+package com.example.AdminPortal.Entity;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="AGENTENTITY")
+public class InsurerEntity {
+	
+	pub
+	
+	private String Payment_Mode;
+	
+	private String Insurer_Name;
+	
+	private String Insurer_ContactNumber;
+	
+	private String Insurer_Email;
+
+	public InsurerEntity(String payment_Mode, String insurer_Name, String insurer_ContactNumber, String insurer_Email) {
+		super();
+		Payment_Mode = payment_Mode;
+		Insurer_Name = insurer_Name;
+		Insurer_ContactNumber = insurer_ContactNumber;
+		Insurer_Email = insurer_Email;
+	}
+
+	public String getPayment_Mode() {
+		return Payment_Mode;
+	}
+
+	public void setPayment_Mode(String payment_Mode) {
+		Payment_Mode = payment_Mode;
+	}
+
+	public String getInsurer_Name() {
+		return Insurer_Name;
+	}
+
+	public void setInsurer_Name(String insurer_Name) {
+		Insurer_Name = insurer_Name;
+	}
+
+	public String getInsurer_ContactNumber() {
+		return Insurer_ContactNumber;
+	}
+
+	public void setInsurer_ContactNumber(String insurer_ContactNumber) {
+		Insurer_ContactNumber = insurer_ContactNumber;
+	}
+
+	public String getInsurer_Email() {
+		return Insurer_Email;
+	}
+
+	public void setInsurer_Email(String insurer_Email) {
+		Insurer_Email = insurer_Email;
+	}
+
+	public InsurerEntity() {
+		super();
+	}
+	
+	
+
+}

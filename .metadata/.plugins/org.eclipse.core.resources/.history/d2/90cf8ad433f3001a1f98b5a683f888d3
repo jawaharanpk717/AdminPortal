@@ -1,0 +1,7 @@
+package com.example.AdminPortal.Controller;
+
+@RestController
+@RequestMapping("/api")
+public class AdminController {
+
+}

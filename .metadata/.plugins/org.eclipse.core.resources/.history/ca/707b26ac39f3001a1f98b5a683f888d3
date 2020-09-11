@@ -1,0 +1,38 @@
+package com.example.AdminPortal.ServiceImpl;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.AdminPortal.Entity.AgentEntity;
+import com.example.AdminPortal.Repository.AdminDao;
+
+@Service("AdminService")
+public class AdminServiceImpl {
+
+	@Autowired
+	static
+	AdminDao admindao;
+	
+	@Transactional
+	public AgentEntity addCustomer(AgentEntity agententity) {
+		admindao.addAgent(customer);
+		return customer;
+	}
+ 
+	@Transactional
+	public AgentEntity updateCustomer(AgentEntity customer) {
+		admindao.addAgent(AgentEntity);
+		return customer;
+	}
+ 
+	@Transactional
+	public void deleteCustomer(int id) {
+		customerDao.deleteCustomer(id);
+	}
+	
+	
+	
+	
+}

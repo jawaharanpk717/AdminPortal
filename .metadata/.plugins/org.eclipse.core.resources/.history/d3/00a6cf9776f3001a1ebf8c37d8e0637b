@@ -1,0 +1,7 @@
+package com.example.AdminPortal.Controller;
+
+import org.springframework.web.bind.annotation.ControllerAdvice;
+
+public class AgentExceptionController {
+
+}

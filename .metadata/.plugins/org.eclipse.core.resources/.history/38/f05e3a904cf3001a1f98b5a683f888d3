@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript">
+            var app = angular.module("AgentManagement", []);
+         
+            
+            app.controller("AgentController", function($scope, $http) {
+         
+                $scope.Agents = [];
+                $scope.AgentForm = {
+                    id : -1,
+                    AgentName : "",
+                    AgentBranchName : ""
+                };
+         
+                $scope.submitAgent = function() {
+         
+                    var method = "";
+                    var url = "";
+                    if ($scope.AgentForm.id == -1) {
+                       
+                        method = "POST";
+                        url = '/addAgent';
+                    } else {
+                        //Id is present in form data, it is edit customer operation
+                        method = "PUT";
+                        url = '/addAgent';
+                    }
+         
+                    $http({
+                        method : method,
+                        url : url,
+                        data : angular.toJson($scope.AgentForm),
+                        headers : {
+                            'Content-Type' : 'application/json'
+                        }
+                    }).then( _success, _error );
+                };
+         
+                //HTTP DELETE- delete customer by Id
+                $scope.deleteAgent = function(Agent) {
+                    $http({
+                        method : 'DELETE',
+                        url : '/deleteAgent/' + Agent.id
+                    }).then(_success, _error);
+                };
+ 
+             // In case of edit, populate form fields and assign form.id with customer id
+                $scope.editAgent = function(Agent) {
+                  
+                    $scope.AgentForm.AgentName =Agent.AgentName;
+                    $scope.AgentForm.AgentBranchName = Agent.AgentBranchName;
+                };
+                
+                </script>
+         
+</head>
+<body ng-app="AgentManagement" ng-controller="AgentController">
+<h1>ADD AGENT DETAILS</h1>
+	<form ng-submit="submitAgent()">
+		<table>
+ 
+			<tr>
+				<th colspan="2">Add/Update Agent</th>
+			</tr>
+			<tr>
+				<td>Agent Name</td>
+				<td><input type="text" ng-model="AgentForm.AgentName" /></td>
+			</tr>
+			<tr>
+				<td>Agent Branch Name</td>
+				<td><input type="text" ng-model="AgentForm.AgentBranchName" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit" value="Submit"
+					class="blue-button" /></td>
+			</tr>
+		</table>
+	</form>
+	<table>
+		<tr>
+ 
+			<th>Agent Name</th>
+			<th>Agent Branch Name</th>
+ 
+		</tr>
+ 
+		<tr ng-repeat="Agent in Agents">
+ 
+			<td>{{ Agent.AgentName }}</td>
+			<td>{{ Agent.AgentBranchName }}</td>
+ 
+			<td><a ng-click="editCustomer(Agent)" class="blue-button">Edit</a>
+				| <a ng-click="deleteCustomer(Agent)" class="red-button">Delete</a></td>
+		</tr>
+ 
+	</table>
+
+<table>
+
+<h1>SEARCH AGENT ON BRANCH WISE</h1>
+
+<tr>
+<td><a ng-click="SelectAgentBranchWise(AgentForm.AgentBranchName)" class="blue-button">Edit</a>
+
+
+</tr>
+
+
+</table>
+
+
+
+  
+
+
+
+
+
+
+
+</body>
+</html>

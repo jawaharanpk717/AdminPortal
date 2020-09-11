@@ -1,0 +1,10 @@
+package com.example.AdminPortal.Repository;
+
+public class AgentDao {
+
+	public void addPayment(String payment_Mode,String Insurer_Name) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

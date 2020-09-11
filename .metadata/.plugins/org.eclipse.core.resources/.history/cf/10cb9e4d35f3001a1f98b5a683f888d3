@@ -1,0 +1,5 @@
+package com.example.AdminPortal.Repository;
+
+public class AdminDao {
+
+}

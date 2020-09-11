@@ -1,0 +1,12 @@
+package com.example.AdminPortal.Repository;
+
+import com.example.AdminPortal.Entity.AgentEntity;
+
+public class AdminDao {
+
+	public void addAgent(AgentEntity agententity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

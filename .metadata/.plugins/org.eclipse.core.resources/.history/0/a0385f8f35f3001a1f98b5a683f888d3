@@ -1,0 +1,14 @@
+package com.example.AdminPortal.Repository;
+
+import com.example.AdminPortal.Entity.AgentEntity;
+
+public class AdminDao {
+
+	public void addAgent(AgentEntity agententity) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.save(customer);
+		return customer;
+		
+	}
+
+}

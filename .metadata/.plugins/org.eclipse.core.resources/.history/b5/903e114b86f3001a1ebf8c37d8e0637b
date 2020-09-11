@@ -1,0 +1,15 @@
+package com.example.AdminPortal.Entity;
+
+public class InsurerEntity {
+	
+	public String Payment_Mode;
+	
+	public String Insurer_Name;
+	
+	public String Insurer_ContactNumber;
+	
+	public String Insurer_Email;
+	
+	
+
+}

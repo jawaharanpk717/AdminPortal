@@ -1,0 +1,13 @@
+package com.example.AdminPortal.Entity;
+
+@lombok
+public class AgentEntity {
+
+	
+	private String AgentName;
+	
+	private String AgentBranchName;
+	
+	
+	
+}

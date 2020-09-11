@@ -1,0 +1,33 @@
+package com.example.AdminPortal.Repository;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.example.AdminPortal.Entity.AgentEntity;
+
+public class AdminDao {
+
+	@Autowired
+	private SessionFactory sessionFactory;
+	
+	public AgentEntity addAgent(AgentEntity agententity) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.save(agententity);
+		return agententity;
+		
+	}
+	
+	public void updateCustomer(AgentEntity agententity) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.update(customer);
+	}
+ 
+	public void deleteCustomer(int id) {
+		Session session = this.sessionFactory.getCurrentSession();
+		AgentEntity p = (Customer) session.load(Customer.class, new Integer(id));
+		if (null != p) {
+			session.delete(p);
+		}
+
+}

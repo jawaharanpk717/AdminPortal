@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+<title>Insert title here</title>
+<script type="text/javascript">
+            var app = angular.module("InsurerManagement", []);
+         
+            
+            app.controller("InsurerController", function($scope, $http) {
+         
+                $scope.Insurer = [];
+                $scope.InsurerForm = {
+                    id : -1,
+                    Payment_Mode : "",
+                    Insurer_Name : "",
+                    Insurer_ContactNumber:"",
+                    Insurer_Email:""
+                };
+         
+                $scope.submitInsurer = function() {
+         
+                    var method = "";
+                    var url = "";
+                    if ($scope.AgentForm.id == -1) {
+                       
+                        method = "POST";
+                        url = '/addAgent';
+                    } else {
+                        //if Id not present in form data, it will be a update operation
+                        method = "PUT";
+                        url = '/addAgent';
+                    }
+         
+                    $http({
+                        method : method,
+                        url : url,
+                        data : angular.toJson($scope.AgentForm),
+                        headers : {
+                            'Content-Type' : 'application/json'
+                        }
+                    }).then( _success, _error );
+                };
+         
+                //HTTP DELETE- delete customer by Id
+                $scope.deleteAgent = function(Agent) {
+                    $http({
+                        method : 'DELETE',
+                        url : '/deleteAgent/' + Agent.id
+                    }).then(_success, _error);
+                };
+ 
+             // In case of edit, populate form fields and assign form.id with customer id
+                $scope.editAgent = function(Agent) {
+                  
+                    $scope.AgentForm.AgentName =Agent.AgentName;
+                    $scope.AgentForm.AgentBranchName = Agent.AgentBranchName;
+                };
+                
+                function _getBranchWiseAgentData(AgentBranchName) {
+                    $http({
+                        method : 'GET',
+                        url : 'http://localhost:8080/getBranchWiseAgent'+AgentBranchName
+                    }).then(function successCallback(response) {
+                        $scope.Agents = response.data;
+                    }, function errorCallback(response) {
+                        console.log(response.statusText);
+                    });
+                }
+         
+                function _success(response) {
+                	_getBranchWiseAgentData();
+                   
+                }
+         
+                function _error(response) {
+                    console.log(response.statusText);
+                }
+                
+                </script>
+</head>
+<body>
+
+<h1>Add Insurer Payment</h1>
+
+<form ng-submit="submitInsurer()">
+		<table>
+ 
+			<tr>
+				<th colspan="2">Add Insurer Agent</th>
+			</tr>
+			<tr>
+				<td>Agent Name</td>
+				<td><input type="text" ng-model="InsurerForm.Payment_Mode" /></td>
+			</tr>
+			<tr>
+				<td>Agent Branch Name</td>
+				<td><input type="text" ng-model="InsurerForm.Insurer_Name" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit" value="Submit"
+					class="blue-button" /></td>
+			</tr>
+		</table>
+	</form>
+	<table>
+
+</body>
+</html>

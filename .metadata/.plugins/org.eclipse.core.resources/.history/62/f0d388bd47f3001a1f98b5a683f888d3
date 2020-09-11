@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript">
+            var app = angular.module("AgentManagement", []);
+         
+            //Controller Part
+            app.controller("AgentController", function($scope, $http) {
+         
+               
+                $scope.Agents = [];
+                $scope.AgentForm = {
+                    id : -1,
+                    AgentName : "",
+                    AgentBranchName : ""
+                };
+         
+                //Now load the data from server
+                _refreshCustomerData();
+         
+                //HTTP POST/PUT methods for add/edit customer 
+                // with the help of id, we are going to find out whether it is put or post operation
+                
+                $scope.submitAgent = function() {
+         
+                    var method = "";
+                    var url = "";
+                    if ($scope.AgentForm.id == -1) {
+                        //Id is absent in form data, it is create new customer operation
+                        method = "POST";
+                        url = '/addAgent';
+                    } else {
+                        //Id is present in form data, it is edit customer operation
+                        method = "PUT";
+                        url = '/addAgent';
+                    }
+         
+                    $http({
+                        method : method,
+                        url : url,
+                        data : angular.toJson($scope.AgentForm),
+                        headers : {
+                            'Content-Type' : 'application/json'
+                        }
+                    }).then( _success, _error );
+                };
+         
+                //HTTP DELETE- delete customer by Id
+                $scope.deleteAgent = function(Agent) {
+                    $http({
+                        method : 'DELETE',
+                        url : '/deleteAgent/' + customer.id
+                    }).then(_success, _error);
+                };
+ 
+             // In case of edit, populate form fields and assign form.id with customer id
+                $scope.editAgent = function(Agent) {
+                  
+                    $scope.AgentForm.AgentName =Agent.AgentName;
+                    $scope.AgentForm.AgentBranchName = Agent.email;
+                };
+         
+</head>
+<body ng-app="AgentManagement" ng-controller="AgentController">
+<h1>ADMIN PORTAL</h1>
+	<form ng-submit="submitAgent()">
+		<table>
+ 
+			<tr>
+				<th colspan="2">Add/Update Agent</th>
+			</tr>
+			<tr>
+				<td>Agent Name</td>
+				<td><input type="text" ng-model="AgentForm.AgentName" /></td>
+			</tr>
+			<tr>
+				<td>Agent Branch Name</td>
+				<td><input type="text" ng-model="AgentForm.AgentBranchName" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit" value="Submit"
+					class="blue-button" /></td>
+			</tr>
+		</table>
+	</form>
+	<table>
+		<tr>
+ 
+			<th>Customer Name</th>
+			<th>Email</th>
+			<th>Operations</th>
+ 
+		</tr>
+ 
+		<tr ng-repeat="Agent in Agents">
+ 
+			<td>{{ Agent.AgentName }}</td>
+			<td>{{ Agent.AgentBranchName }}</td>
+ 
+			<td><a ng-click="editCustomer(Agent)" class="blue-button">Edit</a>
+				| <a ng-click="deleteCustomer(Agent)" class="red-button">Delete</a></td>
+		</tr>
+ 
+	</table>
+
+</body>
+</html>

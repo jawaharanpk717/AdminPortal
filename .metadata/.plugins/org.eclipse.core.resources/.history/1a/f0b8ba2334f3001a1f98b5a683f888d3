@@ -1,0 +1,10 @@
+package com.example.AdminPortal.Entity;
+
+public class AgentEntity {
+
+	
+	private String AgentName;
+	
+	private String AgentBranchName;
+	
+}

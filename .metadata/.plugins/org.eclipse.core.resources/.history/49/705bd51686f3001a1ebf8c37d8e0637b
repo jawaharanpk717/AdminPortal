@@ -1,0 +1,5 @@
+package com.example.AdminPortal.Entity;
+
+public class InsurerEntity {
+
+}

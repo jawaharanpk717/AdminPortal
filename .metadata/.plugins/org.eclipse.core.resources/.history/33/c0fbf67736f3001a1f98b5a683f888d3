@@ -1,0 +1,19 @@
+package com.example.AdminPortal.Repository;
+
+import org.hibernate.Session;
+
+import com.example.AdminPortal.Entity.AgentEntity;
+
+public class AdminDao {
+
+	@Autowired
+	private SessionFactory sessionFactory;
+	
+	public void addAgent(AgentEntity agententity) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.save(agententity);
+		return agententity;
+		
+	}
+
+}

@@ -1,0 +1,26 @@
+package com.example.AdminPortal.ServiceImpl;
+
+import javax.transaction.Transactional;
+
+import com.example.AdminPortal.Entity.AgentEntity;
+import com.example.AdminPortal.Entity.InsurerEntity;
+
+public class AgentServiceImpl {
+
+	public void AddPayment(String payment_Mode) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public InsurerEntity addinsurer(InsurerEntity insurer_entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Transactional
+	public  void AddPayment(AgentEntity agententity) {
+		admindao.addAgent(agententity);
+		return agententity;
+	}
+
+}

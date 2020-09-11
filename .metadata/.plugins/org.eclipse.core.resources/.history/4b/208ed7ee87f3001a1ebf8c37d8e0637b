@@ -1,0 +1,10 @@
+package com.example.AdminPortal.ServiceImpl;
+
+public class AgentServiceImpl {
+
+	public void AddPayment(String payment_Mode) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

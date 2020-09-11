@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.blue-button {
+	background: #25A6E1;
+	filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#25A6E1',
+		endColorstr='#188BC0', GradientType=0);
+	padding: 3px 5px;
+	color: #fff;
+	font-family: 'Helvetica Neue', sans-serif;
+	font-size: 12px;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 4px;
+	border: 1px solid #1A87B9
+}
+ 
+.red-button {
+	background: #CD5C5C;
+	padding: 3px 5px;
+	color: #fff;
+	font-family: 'Helvetica Neue', sans-serif;
+	font-size: 12px;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 4px;
+	border: 1px solid #CD5C5C
+}
+ 
+table {
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	width: 50%;
+}
+ 
+caption {
+	text-align: left;
+	color: silver;
+	font-weight: bold;
+	text-transform: uppercase;
+	padding: 5px;
+}
+ 
+th {
+	background: SteelBlue;
+	color: white;
+}
+ 
+tbody tr:nth-child(even) {
+	background: WhiteSmoke;
+}
+ 
+tbody tr td:nth-child(2) {
+	text-align: center;
+}
+ 
+tbody tr td:nth-child(3), tbody tr td:nth-child(4) {
+	text-align: center;
+	font-family: monospace;
+}
+ 
+tfoot {
+	background: SeaGreen;
+	color: white;
+	text-align: right;
+}
+ 
+tfoot tr th:last-child {
+	font-family: monospace;
+}
+ 
+td, th {
+	border: 1px solid gray;
+	width: 25%;
+	text-align: left;
+	padding: 5px 10px;
+}
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript">
+            var app = angular.module("AgentManagement", []);
+         
+            
+            app.controller("AgentController", function($scope, $http) {
+         
+                $scope.Agents = [];
+                $scope.AgentForm = {
+                    id : -1,
+                    AgentName : "",
+                    AgentBranchName : ""
+                };
+         
+                $scope.submitAgent = function() {
+         
+                    var method = "";
+                    var url = "";
+                    if ($scope.AgentForm.id == -1) {
+                       
+                        method = "POST";
+                        url = '/addAgent';
+                    } else {
+                        //Id is present in form data, it is edit customer operation
+                        method = "PUT";
+                        url = '/addAgent';
+                    }
+         
+                    $http({
+                        method : method,
+                        url : url,
+                        data : angular.toJson($scope.AgentForm),
+                        headers : {
+                            'Content-Type' : 'application/json'
+                        }
+                    }).then( _success, _error );
+                };
+         
+                //HTTP DELETE- delete customer by Id
+                $scope.deleteAgent = function(Agent) {
+                    $http({
+                        method : 'DELETE',
+                        url : '/deleteAgent/' + Agent.id
+                    }).then(_success, _error);
+                };
+ 
+             // In case of edit, populate form fields and assign form.id with customer id
+                $scope.editAgent = function(Agent) {
+                  
+                    $scope.AgentForm.AgentName =Agent.AgentName;
+                    $scope.AgentForm.AgentBranchName = Agent.AgentBranchName;
+                };
+                
+                function _getBranchWiseAgentData(AgentBranchName) {
+                    $http({
+                        method : 'GET',
+                        url : 'http://localhost:8080/getBranchWiseAgent'+AgentBranchName
+                    }).then(function successCallback(response) {
+                        $scope.Agents = response.data;
+                    }, function errorCallback(response) {
+                        console.log(response.statusText);
+                    });
+                }
+         
+                function _success(response) {
+                	_getBranchWiseAgentData();
+                   
+                }
+         
+                function _error(response) {
+                    console.log(response.statusText);
+                }
+                
+                </script>
+         
+</head>
+<body ng-app="AgentManagement" ng-controller="AgentController">
+<h1>ADD AGENT DETAILS</h1>
+	<form ng-submit="submitAgent()">
+		<table>
+ 
+			<tr>
+				<th colspan="2">Add/Update Agent</th>
+			</tr>
+			<tr>
+				<td>Agent Name</td>
+				<td><input type="text" ng-model="AgentForm.AgentName" /></td>
+			</tr>
+			<tr>
+				<td>Agent Branch Name</td>
+				<td><input type="text" ng-model="AgentForm.AgentBranchName" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit" value="Submit"
+					class="blue-button" /></td>
+			</tr>
+		</table>
+	</form>
+	<table>
+		<!-- <tr>
+ 
+			<th>Agent Name</th>
+			<th>Agent Branch Name</th>
+ 
+		</tr>
+ 
+		<tr ng-repeat="Agent in Agents">
+ 
+			<td>{{ Agent.AgentName }}</td>
+			<td>{{ Agent.AgentBranchName }}</td>
+ 
+			<td><a ng-click="editCustomer(Agent)" class="blue-button">Edit</a>
+				| <a ng-click="deleteCustomer(Agent)" class="red-button">Delete</a></td>
+		</tr> -->
+ 
+	</table>
+
+<table>
+
+<h1>SEARCH AGENT ON BRANCH WISE</h1>
+
+<tr>
+
+<td><a ng-click="_getBranchWiseAgentData(AgentForm.AgentBranchName)" class="blue-button">Search Agent Branch Wise</a>
+
+<tr ng-repeat="Agent in Agents">
+ 
+			<td>{{ Agent.AgentName }}</td>
+			<td>{{ Agent.AgentBranchName }}</td>
+ 
+			<td><a ng-click="editCustomer(Agent)" class="blue-button">Edit</a>
+				| <a ng-click="deleteCustomer(Agent)" class="red-button">Delete</a></td>
+		</tr>
+</tr>
+
+
+</table>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+package com.example.AdminPortal.Repository;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.example.AdminPortal.Entity.AgentEntity;
+import com.example.AdminPortal.Entity.InsurerEntity;
+
+@Repository
+public class AgentDao {
+	
+	
+	@Autowired
+	private SessionFactory sessionFactory;
+
+	@Autowired
+	InsurerEntity insurerentity;
+	
+	public void addpayment(String Payment_Mode,String Insurer_Name) {
+		Session session = this.sessionFactory.getCurrentSession();
+		insurerentity.setInsurer_Name(Insurer_Name);;
+		insurerentity.setPayment_Mode(Payment_Mode);
+		session.save(agententity);
+		return agententity;
+		
+	}
+}

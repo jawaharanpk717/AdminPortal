@@ -1,0 +1,57 @@
+package com.example.AdminPortal.ServiceImpl;
+
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.AdminPortal.Entity.AgentEntity;
+import com.example.AdminPortal.Exception.AgentNotFoundException;
+import com.example.AdminPortal.Repository.AdminDao;
+
+@Service("AdminService")
+public class AdminServiceImpl {
+
+	@Autowired
+	AdminDao admindao;
+	
+	@Transactional
+	public  AgentEntity addAgent(AgentEntity agententity) {
+		admindao.addAgent(agententity);
+		return agententity;
+	}
+ 
+	@Transactional
+	public AgentEntity updateAgent(AgentEntity agententity) {
+		admindao.updateAgent(agententity);
+		return agententity;
+	}
+ 
+	@Transactional
+	public void deleteAgent(int id) {
+		admindao.deleteAgent(id);
+	}
+
+
+	@Transactional
+	public List<AgentEntity> getBranchWiseAgent(String AgentBranchName) throws AgentNotFoundException
+	{
+		try {
+		
+			return admindao.getBranchWiseAgents(AgentBranchName);
+		}
+
+		catch(Exception e) {
+			 
+			throw new AgentNotFoundException();
+			
+		}
+		
+		
+	}
+	
+	
+	
+}
